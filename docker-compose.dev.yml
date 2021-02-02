@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+   api-taxajuros:
+       image: mcr.microsoft.com/dotnet/core/sdk
+       ports: ["5000:80"]
+       volumes:
+       - ./api-taxajuros:/app
+       working_dir: /app
+       environment:
+           ASPNETCORE_ENVIRONMENT: Development
+       command: dotnet watch run --urls=http://+:80
+ 
+   api-calculojuros:
+       image: mcr.microsoft.com/dotnet/core/sdk
+       ports: ["5001:80"]
+       volumes:
+       - ./api-calculojuros:/app
+       working_dir: /app
+       environment:
+           ASPNETCORE_ENVIRONMENT: Development
+       command: dotnet watch run --urls=http://+:80
+ 
+   test:
+       image: mcr.microsoft.com/dotnet/core/sdk
+       volumes:
+       - ./:/app
+       working_dir: /app/test
+       environment:
+           ASPNETCORE_ENVIRONMENT: Development
+       command: dotnet test

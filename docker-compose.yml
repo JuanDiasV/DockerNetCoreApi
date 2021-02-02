@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+ 
+   api-taxajuros:
+       build:
+           args:
+               SERVICE: Api.TaxaJuros
+           context: ./api-taxajuros
+           dockerfile: ../Dockerfile
+       ports: ["5000:80"]
+ 
+   api-calculojuros:
+       build:
+           args:
+               SERVICE: Api.CalculoJuros
+           context: ./api-calculojuros
+           dockerfile: ../Dockerfile
+       ports: ["5001:80"]
+       depends_on: ["api-taxajuros"]
